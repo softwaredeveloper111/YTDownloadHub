@@ -26,7 +26,7 @@ return(
 
 { loading &&  <SkeletonLoader/>}
 
-{videoMetaData && <VideoCard/>}
+{videoMetaData && <VideoCard video={videoMetaData} />}
 
 <Footer/>
 

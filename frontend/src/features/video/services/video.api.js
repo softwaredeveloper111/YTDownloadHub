@@ -19,3 +19,21 @@ export const getMetaDataAPI = async(url)=>{
     throw error;
   }
 }
+
+
+
+
+export const downloadVideoAPI = (url, formatId, type) => {
+
+  const params = new URLSearchParams({
+    url,
+    formatId,
+    type
+  });
+
+  window.open(
+    `http://localhost:3000/api/video/download?${params.toString()}`,
+    "_self"
+  );
+
+};
