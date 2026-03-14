@@ -4,11 +4,11 @@ export const VideoContextProvider = createContext()
 
 const VideoContext = ({children}) => {
   
-  const [loader, setLoader] = useState(false)
+  const [loading, setLoading] = useState(false)
   const [videoMetaData, setVideoMetaData] = useState(null)
 
   return (
- <VideoContextProvider.Provider value={{loader, setLoader, videoMetaData, setVideoMetaData}}>
+ <VideoContextProvider.Provider value={{loading, setLoading, videoMetaData, setVideoMetaData}}>
   {children}
   </VideoContextProvider.Provider>
   )

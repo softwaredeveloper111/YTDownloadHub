@@ -4,10 +4,13 @@ import Hero from "../components/Hero";
 import VideoCard from "../components/VideoCard";
 import SkeletonLoader from "../components/SkeletonLoader";
 import Footer from "../components/Footer";
+import useVideo from "../hooks/useVideo";
+
+
 
 function App(){
 
-
+const {loading, videoMetaData} = useVideo()
 
 return(
 
@@ -21,9 +24,9 @@ return(
 
 <Hero/>
 
-{<SkeletonLoader/>}
+{ loading &&  <SkeletonLoader/>}
 
-{<VideoCard/>}
+{videoMetaData && <VideoCard/>}
 
 <Footer/>
 

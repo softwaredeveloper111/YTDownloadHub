@@ -1,24 +1,21 @@
 
 import {useForm} from "react-hook-form";
 import useVideo from "../hooks/useVideo";
-import Loader from "../../shared/Loader";
+
 
 
 
 
 export default function Hero() {
 
-  const { register, handleSubmit, reset } = useForm();
-  const {loader, videoMetaData, fetchMetaDataHandler} = useVideo()
+  const { register, handleSubmit } = useForm();
+  const {loading, videoMetaData, fetchMetaDataHandler} = useVideo()
 
   const submitHandler = (data)=>{
     fetchMetaDataHandler(data)
-    reset();
+
   }
 
-  if(loader){
-    <Loader size="xl" color="purple" text="Fetching video metadata..." />
-  }
 
 
   return (

@@ -1,6 +1,7 @@
 import youtubedl from "yt-dlp-exec";
 
 
+
 export const getVideoMetadata = async (url) => {
   const data = await youtubedl(url, {
     dumpSingleJson: true,
@@ -9,12 +10,11 @@ export const getVideoMetadata = async (url) => {
   });
 
   const videoFormats = new Map();
-
-  const audioCandidates = [];
+  const audioFormats = new Map();
 
   data.formats.forEach((f) => {
 
-    // VIDEO FORMATS
+    // VIDEO FORMATS (UNCHANGED)
     if (f.ext === "mp4" && f.vcodec !== "none" && f.height) {
       const resolution = `${f.height}p`;
 
@@ -28,20 +28,23 @@ export const getVideoMetadata = async (url) => {
       }
     }
 
-    // AUDIO FORMATS
-    if (f.vcodec === "none" && f.acodec !== "none" && f.ext === "m4a") {
-      audioCandidates.push({
-        formatId: f.format_id,
-        ext: f.ext,
-        abr: Math.round(f.abr) || 0,
-        filesize: f.filesize || null,
-      });
+    // AUDIO FORMATS (UPDATED)
+    if (f.vcodec === "none" && f.acodec !== "none" && f.abr) {
+
+      const bitrate = Math.round(f.abr);
+
+      // avoid duplicate bitrate
+      if (!audioFormats.has(bitrate)) {
+        audioFormats.set(bitrate, {
+          formatId: f.format_id,
+          ext: f.ext,
+          abr: bitrate,
+          filesize: f.filesize || null,
+        });
+      }
     }
 
   });
-
-  // pick best audio
-  const bestAudio = audioCandidates.sort((a, b) => b.abr - a.abr)[0];
 
   return {
     title: data.title,
@@ -54,6 +57,8 @@ export const getVideoMetadata = async (url) => {
       (a, b) => parseInt(a.resolution) - parseInt(b.resolution)
     ),
 
-    audioFormats: bestAudio ? [bestAudio] : [],
+    audioFormats: Array.from(audioFormats.values()).sort(
+      (a, b) => b.abr - a.abr
+    ),
   };
 };

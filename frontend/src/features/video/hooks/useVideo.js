@@ -4,11 +4,11 @@ import { VideoContextProvider } from "../video.context.jsx";
 
 
 const useVideo = () => {
-  const { loader, setLoader, videoMetaData, setVideoMetaData } = useContext(VideoContextProvider);
+  const { loading, setLoading, videoMetaData, setVideoMetaData } = useContext(VideoContextProvider);
 
   const fetchMetaDataHandler  = async (url) => {
     
-    setLoader(true);
+    setLoading(true);
     try {
       const response = await  getMetaDataAPI(url);
       console.log(response.data)
@@ -19,13 +19,13 @@ const useVideo = () => {
       return {success:false, data: null}
 
     }finally {
-      setLoader(false);
+      setLoading(false);
     }
     
   }
 
 
-  return { loader, videoMetaData, fetchMetaDataHandler }
+  return { loading, videoMetaData, fetchMetaDataHandler }
   
 }
 
