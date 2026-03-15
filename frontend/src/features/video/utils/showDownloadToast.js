@@ -1,7 +1,7 @@
 import { toast } from "react-toastify";
 
 export const showDownloadToast = () => {
-  let time = 25;
+  let time = 40;
 
   const toastId = toast.info(`Preparing download... ${time}s`, {
     autoClose: false
@@ -11,7 +11,7 @@ export const showDownloadToast = () => {
     time--;
 
     toast.update(toastId, {
-      render: `Preparing download... ${time}s`
+      render: `download will start sortly in ${time}s`
     });
 
     if (time <= 0) {

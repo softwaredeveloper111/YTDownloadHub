@@ -31,9 +31,11 @@ export const downloadVideoAPI = (url, formatId, type) => {
     type
   });
 
-  window.open(
-    `http://localhost:3000/api/video/download?${params.toString()}`,
-    "_self"
-  );
+  const link = document.createElement("a");
+  link.href = `http://localhost:3000/api/video/download?${params.toString()}`;
+  link.download = "";
+  document.body.appendChild(link);
+  link.click();
+  document.body.removeChild(link);
 
 };

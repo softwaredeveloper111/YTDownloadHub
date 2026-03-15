@@ -34,14 +34,21 @@ const useVideo = () => {
 
 
 
-  const downloadVideoHandler =  (url, formatId, type) => {
-    
-    try {
-       downloadVideoAPI(url, formatId, type);
-    } catch (error) {
-      console.log(error.message);
-    }
-  };
+const downloadVideoHandler = (url, formatId, type) => {
+  try {
+
+    // start toast countdown
+    showDownloadToast();
+
+    // immediately start backend request
+    downloadVideoAPI(url, formatId, type);
+
+  } catch (error) {
+    console.log(error.message);
+  }
+};
+
+
 
   return {
     loading,
