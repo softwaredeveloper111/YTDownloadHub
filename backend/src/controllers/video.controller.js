@@ -28,6 +28,7 @@ export const downloadController = asyncWrapper(async (req, res) => {
     throw new AppError("URL, formatId and type are required", 400); 
   }
 
-  return downloadVideo(url, formatId, type, res);
+   downloadVideo(url, formatId, type, res);
+
 
 })

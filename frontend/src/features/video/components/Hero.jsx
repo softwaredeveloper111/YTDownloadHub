@@ -1,6 +1,6 @@
-
 import {useForm} from "react-hook-form";
 import useVideo from "../hooks/useVideo";
+import { toast } from "react-toastify";
 
 
 
@@ -9,11 +9,15 @@ import useVideo from "../hooks/useVideo";
 export default function Hero() {
 
   const { register, handleSubmit } = useForm();
-  const {loading, videoMetaData, fetchMetaDataHandler} = useVideo()
+  const { fetchMetaDataHandler ,setVideoMetaData} = useVideo()
 
-  const submitHandler = (data)=>{
-    fetchMetaDataHandler(data)
-
+  const submitHandler = async (data)=>{
+    setVideoMetaData(null)
+   const response = await fetchMetaDataHandler(data)
+    if(!response.success){
+       toast.error("invalid url or something went wrong")
+    }
+   
   }
 
 

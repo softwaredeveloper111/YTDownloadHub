@@ -66,7 +66,7 @@ export default function VideoCard({ video }) {
         <div className="flex items-center gap-2 border-b border-white/10 p-4">
           <button
             onClick={() => setTab("audio")}
-            className={`flex items-center gap-2 px-4 py-2 rounded-xl text-sm font-medium ${
+            className={`flex items-center gap-2 px-4 py-2 cursor-pointer rounded-xl text-sm font-medium ${
               tab === "audio"
                 ? "bg-white/15 text-white"
                 : "text-gray-200 hover:bg-white/10"
@@ -77,7 +77,7 @@ export default function VideoCard({ video }) {
 
           <button
             onClick={() => setTab("video")}
-            className={`flex items-center gap-2 px-4 py-2 rounded-xl text-sm font-medium ${
+            className={`flex items-center gap-2 px-4 py-2 rounded-xl cursor-pointer text-sm font-medium ${
               tab === "video"
                 ? "bg-white/15 text-white"
                 : "text-gray-200 hover:bg-white/10"

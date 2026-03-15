@@ -1,29 +1,37 @@
 import { useContext } from "react";
-import { getMetaDataAPI ,downloadVideoAPI } from "../services/video.api";
+import { getMetaDataAPI, downloadVideoAPI } from "../services/video.api";
 import { VideoContextProvider } from "../video.context.jsx";
-
+import { showDownloadToast } from "../utils/showDownloadToast.js";
+import { toast } from "react-toastify";
 
 const useVideo = () => {
-  const { loading, setLoading, videoUrl,  setVideoUrl, videoMetaData, setVideoMetaData } = useContext(VideoContextProvider);
+  const {
+    loading,
+    setLoading,
+    videoUrl,
+    setVideoUrl,
+    videoMetaData,
+    setVideoMetaData,
+  } = useContext(VideoContextProvider);
 
-  const fetchMetaDataHandler  = async (url) => {
-    
-    setVideoUrl(url.url)
+  const fetchMetaDataHandler = async (url) => {
+    setVideoUrl(url.url);
     setLoading(true);
     try {
-      const response = await  getMetaDataAPI(url);
-      console.log(response.data)
+      const response = await getMetaDataAPI(url);
+      console.log(response.data);
       setVideoMetaData(response.data);
-      return {success:true, data: response.data}
+      return { success: true, data: response.data };
     } catch (error) {
       console.log(error.message);
-      return {success:false, data: null}
-
-    }finally {
+      return { success: false, data: null };
+    } finally {
       setLoading(false);
     }
-    
-  }
+  };
+
+
+
 
 
   const downloadVideoHandler =  (url, formatId, type) => {
@@ -35,9 +43,15 @@ const useVideo = () => {
     }
   };
 
+  return {
+    loading,
+    videoMetaData,
+    setVideoMetaData,
+    videoUrl,
+    setVideoUrl,
+    fetchMetaDataHandler,
+    downloadVideoHandler,
+  };
+};
 
-  return { loading, videoMetaData, videoUrl,  setVideoUrl, fetchMetaDataHandler, downloadVideoHandler  }
-  
-}
-
-export default useVideo
+export default useVideo;

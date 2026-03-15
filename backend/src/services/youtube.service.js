@@ -3,6 +3,9 @@ import youtubedl from "yt-dlp-exec";
 
 
 export const getVideoMetadata = async (url) => {
+
+  try{
+
   const data = await youtubedl(url, {
     dumpSingleJson: true,
     noWarnings: true,
@@ -61,4 +64,12 @@ export const getVideoMetadata = async (url) => {
       (a, b) => b.abr - a.abr
     ),
   };
+
+}catch(error){
+    console.error("Metadata fetch failed:", error);
+
+    throw new Error("Failed to fetch video metadata");
+
+}
+
 };
