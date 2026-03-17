@@ -1,7 +1,7 @@
 import { toast } from "react-toastify";
 
 export const showDownloadToast = () => {
-  let time = 40;
+  let time = 60;
 
   const toastId = toast.info(`Preparing download... ${time}s`, {
     autoClose: false

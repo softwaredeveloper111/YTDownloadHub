@@ -112,8 +112,8 @@ export default function VideoCard({ video }) {
 
                     const fileTypeLabel =
                       tab === "audio"
-                        ? `${"mp3"} - ${format.abr}kbps`
-                        : `${format.resolution} (${format.ext?.toUpperCase()})`;
+                        ? `${format.abr}kbps`
+                        : `${format.resolution}`;
 
                     return (
                       <tr key={format.formatId} className="border-t border-white/10">
@@ -123,7 +123,7 @@ export default function VideoCard({ video }) {
                         </td>
 
                         <td className="py-3 px-3 text-white/80">
-                          Auto
+                           {tab === "audio" ? "mp3" : "mp4"}
                         </td>
 
                         <td className="py-3 px-3 text-white/80">
